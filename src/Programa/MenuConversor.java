@@ -25,7 +25,8 @@ import javax.swing.JButton;
 public class MenuConversor extends JFrame {
 
 	/**
-	 * 
+	 * Este es el menu principal, decargamos el Plugins de Jframe para poder disenhar el formulario.
+	 * LEs muestro ahora el disenho
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -46,6 +47,8 @@ public class MenuConversor extends JFrame {
 			}
 		});
 	}
+	
+	
 
 	
 	
@@ -91,6 +94,7 @@ public class MenuConversor extends JFrame {
 		lblConversorMonedas.setToolTipText("Para convertir monedas");
 		panel.add(lblConversorMonedas);
 		
+		
 		JLabel lblConversorLongitud = new JLabel("");
 		lblConversorLongitud.addMouseListener(new MouseAdapter() {
 			@Override
@@ -99,7 +103,14 @@ public class MenuConversor extends JFrame {
 				cu.setVisible(true);
 				dispose();
 			}
+			public void mouseEntered(MouseEvent es) {
+				/*ImageIcon icoLon = new ImageIcon(getClass().getResource("/Imagenes/Longitud2.png"));
+				ImageIcon imgLon = new ImageIcon(icoLon.getImage().getScaledInstance(lblConversorLongitud.getWidth(), lblConversorLongitud.getHeight(), Image.SCALE_SMOOTH));
+				lblConversorLongitud.setIcon(imgLon);*/
+				
+			}
 		});
+		
 		lblConversorLongitud.setBounds(235, 76, 158, 137);
 		ImageIcon icoLon = new ImageIcon(getClass().getResource("/Imagenes/Longitud.png"));
 		ImageIcon imgLon = new ImageIcon(icoLon.getImage().getScaledInstance(lblConversorLongitud.getWidth(), lblConversorLongitud.getHeight(), Image.SCALE_SMOOTH));
@@ -133,7 +144,7 @@ public class MenuConversor extends JFrame {
 		private void salir() {
 			
 	
-		JOptionPane optionpane = new JOptionPane();
+	
 		Object[] opciones = {"si", "no"};
 		int ret = JOptionPane.showOptionDialog(this, "Desea salir?", "Pregunta", JOptionPane.YES_NO_OPTION,
 		        JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);

@@ -18,6 +18,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
@@ -32,7 +34,9 @@ public class ConversorUnidadMedida extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtCantidad;
 	private JTextField txtResultado;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cmbUnidad1;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cmbUnidad2;
 	String unidad1, unidad2;
 	double cantidadEscrita;
@@ -48,6 +52,7 @@ public class ConversorUnidadMedida extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ConversorUnidadMedida() {
 		formatea = new DecimalFormat("###,###.##");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,8 +114,24 @@ public class ConversorUnidadMedida extends JFrame {
 		txtCantidad = new JTextField();
 		txtCantidad.setColumns(10);
 		txtCantidad.setBounds(274, 181, 119, 40);
-		TextPrompt can = new TextPrompt("Escriba cantidad", txtCantidad);
 		contentPanel.add(txtCantidad);
+		txtCantidad.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!Character.isDigit(c) && c !='.') {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo se acepta valores numericos");
+					
+					
+				}
+				if (c=='.' && txtCantidad.getText().contains(".")) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se puede agregar dos puntos decimales a un numero");
+					
+				}
+			
+			}
+		});
 		
 		JLabel lblResultado = new JLabel("Resultado");
 		lblResultado.setFont(new Font("Roboto", Font.BOLD, 14));
@@ -545,7 +566,7 @@ public class ConversorUnidadMedida extends JFrame {
 	}
 	private void salir() {
 		
-        JOptionPane optionpane = new JOptionPane();
+       
         Object[] opciones = {"si", "no"};
         int ret = JOptionPane.showOptionDialog(this, "Desea salir?", "Pregunta", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);

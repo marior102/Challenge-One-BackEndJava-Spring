@@ -42,6 +42,8 @@ public class Dolar {
 	public String GetVenta() {
 		return Venta;
 	}
+	
+	// Aca traemos ese dato
 	public void SetGuardarCompra(String guardarCom) {
 		guardarCompra = guardarCom;
 		
@@ -49,6 +51,8 @@ public class Dolar {
 	public void SetGuardarVenta(String guardarVen) {
 		guardarVenta = guardarVen;
 	}
+	//y con metodo get guardamos para poder utilizarlo
+	
 	public String getguardarCompra() {
 		return guardarCompra;
 	}

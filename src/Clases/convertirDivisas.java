@@ -4,6 +4,7 @@ public class convertirDivisas {
 	private double Moneda;
 	
 	
+	// Este seria un metodo get y set para convertir variables de tipo String a Double
 	
 	public void convertir(String moneda) {
 		Moneda = Double.parseDouble(moneda);
@@ -12,6 +13,7 @@ public class convertirDivisas {
 	public double getMoneda(){
 		return this.Moneda;
 	}
+	
 	
 
 }

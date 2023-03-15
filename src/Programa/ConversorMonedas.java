@@ -36,8 +36,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.AncestorEvent;
 
 public class ConversorMonedas extends JDialog {
 
@@ -94,13 +92,13 @@ public class ConversorMonedas extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConversorMonedas() {
 		try {
 			System.out.println("Entro aqui");
 			cargarCotizaciones();
 			//cargarCamposCotizaciones();
 		} catch (NullPointerException ex) {
-			JOptionPane optionpane = new JOptionPane();
             Object[] opciones = {"si", "no"};
 			int ret = JOptionPane.showOptionDialog(this, "No tienes accesar a internet. Desea recuperar datos guardados?", "Pregunta", JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
@@ -485,6 +483,7 @@ public class ConversorMonedas extends JDialog {
 		contentPanel.add(lblMonto);
 		
 		txtMonto = new JTextField();
+		@SuppressWarnings("unused")
 		TextPrompt mon = new TextPrompt("Escriba el monto", txtMonto);
 		txtMonto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -492,11 +491,24 @@ public class ConversorMonedas extends JDialog {
 				btnConvertir.doClick();
 			}
 		});
-		txtMonto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		txtMonto.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!Character.isDigit(c) && c !='.') {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo se acepta valores numericos");
+					
+					
+				}
+				if (c=='.' && txtMonto.getText().contains(".")) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "No se puede agregar dos puntos decimales a un numero");
+					
+				}
 			
 			}
 		});
+		    
 		txtMonto.setBounds(315, 187, 119, 40);
 		contentPanel.add(txtMonto);
 		txtMonto.setColumns(10);
@@ -555,21 +567,25 @@ public class ConversorMonedas extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				if (txtMonto.getText().length() !=0) {
-					double monto = Double.parseDouble(txtMonto.getText());
-						if(monto > 0) {
-							comboquiero = cmbquiero.getSelectedItem().toString();
-							combotengo = cmbTengo.getSelectedItem().toString();
-							convertirDivisas(combotengo, comboquiero);
+						if (txtMonto.getText().length() !=0) {
+							double monto = Double.parseDouble(txtMonto.getText());
+								if(monto > 0 ) {
+									comboquiero = cmbquiero.getSelectedItem().toString();
+									combotengo = cmbTengo.getSelectedItem().toString();
+									convertirDivisas(combotengo, comboquiero);
+								}else {
+									JOptionPane.showMessageDialog(null, "No se puede calcular con un monto negativo");
+									limpiar();
+								}
+								
 						}else {
-							JOptionPane.showMessageDialog(null, "No se puede calcular con un monto negativo");
+							JOptionPane.showMessageDialog(null, "No se puede calcular porque el monto esta vacio");
 							limpiar();
 						}
-						
-				}else {
-					JOptionPane.showMessageDialog(null, "No se puede calcular porque el monto esta vacio");
-					limpiar();
-				}
+					
+				
+				
+				
 				
 			}
 		});
@@ -613,6 +629,8 @@ public class ConversorMonedas extends JDialog {
 		
 	}
 	
+	
+	//aca primeramente convertimos las monedas de tipo String a Double
 	private void convertirDivisas(String tengo, String quiero) {
 		/*Guarani
 		Dollar
@@ -662,6 +680,8 @@ public class ConversorMonedas extends JDialog {
 		
 		System.out.println(quiero + tengo);
 			//Compra de Dolar
+		
+		//Y aca con el Switch if/else ponemos las condiciones para que puedan hacer los calculos
 		
 		if(tengo == "Guarani" || quiero == "Guarani") {
 			if (tengo.equalsIgnoreCase("Guarani") && quiero.equalsIgnoreCase("Guarani")) {
@@ -790,13 +810,17 @@ public class ConversorMonedas extends JDialog {
 			
 		}
 		
-			
+		/// Y asi funciona nuestro programa, espero que les haya gustado y espero algunas sugerencias
+		
+		//Por cierto,  este ya es un repositorio de Git y ya alzamos de manera remota
+		
 	
 		
 		
 		
 		
 	}
+	@SuppressWarnings("static-access")
 	private void cargarCotizaciones() {
 		/**
 		 * Cargamos dolar
@@ -832,7 +856,7 @@ public class ConversorMonedas extends JDialog {
 		
 		
 	}
-	private void cargarCamposCotizaciones() {
+	/*private void cargarCamposCotizaciones() {
 
 		txtDollarCompra.setText(dolar.getCompra());
 		txtdollarVenta.setText(dolar.GetVenta());
@@ -846,8 +870,9 @@ public class ConversorMonedas extends JDialog {
 		txtrealVenta.setText(realB.GetVenta());	
 		
 		
-	}
-	private void cargarCamposguardados() {
+	}*/
+	
+	/*private void cargarCamposguardados() {
 
 		txtDollarCompra.setText(doG.getguardarCompra());
 		txtdollarVenta.setText(doG.getguardarVenta());
@@ -865,7 +890,8 @@ public class ConversorMonedas extends JDialog {
 		
 		
 		
-	}
+	}*/
+	
 	private void limpiar() {
 		txtMonto.setText("");
 		//TextPrompt mon = new TextPrompt("Escriba el monto", txtMonto);
@@ -906,20 +932,25 @@ public class ConversorMonedas extends JDialog {
 		try {
 			System.out.println("Entro aqui1");
 			
-			BufferedReader lectorArchivo = new BufferedReader(new FileReader(file));
-			if(lectorArchivo.ready()) {
-				//String primeraLinea = lectorArchivo.readLine();
-				System.out.println("Entro aqui2 " );
-				String cadena;
+			try (BufferedReader lectorArchivo = new BufferedReader(new FileReader(file))) {
+				if(lectorArchivo.ready()) {
+					//String primeraLinea = lectorArchivo.readLine();
+					System.out.println("Entro aqui2 " );
+					String cadena;
+					
+					//ArrayList<String> cargarDatos = new ArrayList<String>();
+					//Leemos la ultima linea
+					
+					while ((cadena = lectorArchivo.readLine()) != null) {
+						// Aca ponemos como condicional que cada campo estara separado por "," 
+						// y agregamos esos datos en un Arrayslist
+						lista = new ArrayList<>(Arrays.asList(cadena.split(",")));
+						System.out.println("Entro aqui e imprime esto: " + lista + "Solo ejecuto ");
+					}
 				
-				ArrayList<String> cargarDatos = new ArrayList<String>();
-				while ((cadena = lectorArchivo.readLine()) != null) {
-					lista = new ArrayList<>(Arrays.asList(cadena.split(",")));
-					System.out.println("Entro aqui e imprime esto: " + lista + "Solo ejecuto ");
+				}else {
+					System.out.println("El archivo no esa listo para leerse");
 				}
-			
-			}else {
-				System.out.println("El archivo no esa listo para leerse");
 			}
 			
 			
@@ -932,6 +963,9 @@ public class ConversorMonedas extends JDialog {
 	}
 	
 	public void enviarDatos() {
+		
+		//Luego enviamos esos datos a clases que encapsulan datos
+		
 		
 		doG = new Dolar();
 		euG= new Euro();
@@ -972,6 +1006,7 @@ public class ConversorMonedas extends JDialog {
 			
 		}
 	}
+	@SuppressWarnings("static-access")
 	public void agregarRegistrosCotizacion() {
 		try {
 			FileWriter fw = new FileWriter("Cotizacionesguardadas.txt",true);
@@ -1008,8 +1043,6 @@ public class ConversorMonedas extends JDialog {
 		}
 	}
 	private void salir() {
-		
-        JOptionPane optionpane = new JOptionPane();
         Object[] opciones = {"si", "no"};
         int ret = JOptionPane.showOptionDialog(this, "Desea salir?", "Pregunta", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
@@ -1023,4 +1056,6 @@ public class ConversorMonedas extends JDialog {
 		
 		
 	}
+	
+	
 }

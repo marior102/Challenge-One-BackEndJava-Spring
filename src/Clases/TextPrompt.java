@@ -14,7 +14,6 @@ package Clases;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 
@@ -31,6 +30,8 @@ public class TextPrompt extends JLabel implements FocusListener, DocumentListene
 	/**
 	 * 
 	 */
+	
+	//Usamos la clase de TextPrompt para colocar una descripcion a las cajas de texto
 	private static final long serialVersionUID = 1L;
 
 	public enum Show {
