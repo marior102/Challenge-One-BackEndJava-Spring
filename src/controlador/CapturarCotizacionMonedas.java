@@ -1,4 +1,4 @@
-package Scrap;
+package controlador;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,9 +9,10 @@ public class CapturarCotizacionMonedas {
 	private String venta;
 	private boolean conectar;
 	private Document html;
+	private String BASE_URL = "https://www.cambioschaco.com.py/"; 
 	
-	public CapturarCotizacionMonedas(String url1, String url2) {
-        html = obtenerDatosHTML(url1);
+	public CapturarCotizacionMonedas( String url2) {
+        html = obtenerDatosHTML(BASE_URL);
 
         if (html != null) {
             Elements divisa = html.select(url2);

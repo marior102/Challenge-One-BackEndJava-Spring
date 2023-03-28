@@ -1,0 +1,6 @@
+Nombre: Dolar Icono: javax.swing.ImageIcon@16147e42 Simbolo: $ Venta: 7.200 Compra: 7.100 Fecha Registro 27/3/2023 : 10:52:44 
+Nombre: Guarani Icono: javax.swing.ImageIcon@630de0e9 Simbolo: ₲ Venta: 0 Compra: 0 Fecha Registro 27/3/2023 : 10:52:44 
+Nombre: Yen Japones Icono: javax.swing.ImageIcon@2a1e4bc8 Simbolo: ¥ Venta: 58 Compra: 35 Fecha Registro 27/3/2023 : 10:52:44 
+Nombre: Libra Icono: javax.swing.ImageIcon@443a5209 Simbolo: £ Venta: 9.400 Compra: 7.000 Fecha Registro 27/3/2023 : 10:52:44 
+Nombre: Real Brasil Icono: javax.swing.ImageIcon@1fcdd6a7 Simbolo: R$ Venta: 1.400 Compra: 1.350 Fecha Registro 27/3/2023 : 10:52:44 
+Nombre: Euro Icono: javax.swing.ImageIcon@777169ae Simbolo: € Venta: 8.050 Compra: 7.850 Fecha Registro 27/3/2023 : 10:52:44 

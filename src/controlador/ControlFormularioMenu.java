@@ -1,12 +1,14 @@
-package Clases;
+package controlador;
+
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import Programa.MenuConversor2;
-import Programa.PanelLongitud;
-import Programa.PanelMoneda;
+
+import Vista.MenuConversor2;
+import Vista.PanelLongitud;
+import Vista.PanelMoneda;
 
 
 public class ControlFormularioMenu implements ActionListener {
@@ -46,7 +48,7 @@ public class ControlFormularioMenu implements ActionListener {
 	        switch (nombrePanel){
 	            
 	            case "Inicio":
-	                menuPrincipal.panelInicio.setVisible(true);
+	                menuPrincipal.panelInicio.setVisible(true);  
 	                conversorMoneda.setVisible(false);
 	                conversorUnidad.setVisible(false);
 	        
@@ -54,15 +56,12 @@ public class ControlFormularioMenu implements ActionListener {
 	            
 	            case "Moneda":
 	            	conversorMoneda.setVisible(true);
-	            	System.out.println("Entro aqui en moneda");
 	            	menuPrincipal.panelInicio.setVisible(false);
-	                
 	                conversorUnidad.setVisible(false);
 	            break;
 	            
 	            case "Longitud":
 	            	conversorUnidad.setVisible(true);
-	            	System.out.println("Entro aqui en moneda");
 	            	menuPrincipal.panelInicio.setVisible(false);
 	                conversorMoneda.setVisible(false);
 	                

@@ -1,6 +1,6 @@
-package Programa;
+package controlador;
 
-
+import Vista.MenuConversor2;
 
 public class mainPrincipal {
 	public static void main(String[] args) {
@@ -21,5 +21,6 @@ public class mainPrincipal {
 		Principal.setVisible(true);
 	}
 
+	//javac mainPrincipal.java
 }
 	
